@@ -6,20 +6,9 @@
 
     <include layout="@layout/app_bar"/>
 
-    <TextView android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-    />
-
-    <Button
-        android:id="@+id/button_click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Click me"/>
-
-    <Button
-        android:id="@+id/another_button"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Click me now pls"/>
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    
 </LinearLayout>
