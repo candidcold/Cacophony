@@ -4,23 +4,105 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/current_song"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_action_content_new"
-        fab:fab_colorNormal="@color/primary" />
+        android:layout_marginLeft="@dimen/card_gutter"
+        android:layout_marginRight="@dimen/card_gutter"
+        android:layout_marginBottom="@dimen/card_gutter"
+        android:layout_marginTop="@dimen/card_gutter"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/current_song_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/current_tone"
+                android:textSize="24sp"
+                android:textColor="@color/accent"
+                android:paddingTop="@dimen/text_padding_top"
+                android:paddingLeft="@dimen/padding_left_right"
+                android:paddingRight="@dimen/padding_left_right"
+                />
+
+            <TextView
+                android:id="@+id/current_song"
+                android:textSize="16sp"
+                android:layout_below="@id/current_song_tag"
+                android:paddingLeft="@dimen/padding_left_right"
+                android:paddingRight="@dimen/padding_left_right"
+                android:paddingTop="@dimen/text_padding_top"
+                android:paddingBottom="@dimen/text_padding_bottom"
+                android:textColor="@color/primary_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/alarmStarter"
+                android:layout_below="@id/current_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_alarm"
+                android:textColor="@color/accent"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:id="@+id/alarmCanceler"
+                android:layout_toRightOf="@id/alarmStarter"
+                android:layout_below="@id/current_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stop_alarm"
+                android:textColor="@color/negative_action"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <!--Eventually turn the refresh button into an action button because clutter-->
+
+            <Button
+                android:id="@+id/refreshApp"
+                android:layout_toRightOf="@id/alarmCanceler"
+                android:layout_below="@id/current_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/refresh_app"
+                android:textColor="@color/neutral_action"
+                style="?android:attr/borderlessButtonStyle"/>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/selected_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_left_right"
+        android:background="@color/primary_light"
+        android:text="@string/eligible"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_queue_music_white_24dp"
+            fab:fab_colorNormal="@color/accent" />
+    </FrameLayout>
 
 </LinearLayout>
