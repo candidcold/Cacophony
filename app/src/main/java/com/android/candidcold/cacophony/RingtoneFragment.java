@@ -145,7 +145,7 @@ public class RingtoneFragment extends Fragment {
                 alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                         SystemClock.elapsedRealtime(),
                         AlarmManager.INTERVAL_DAY,
-//                        1000 * 3,
+//                        1000 * 3, // For testing :]
                         alarmPendingIntent);
 
                 Log.d(TAG, "Alarm has been started");
@@ -277,15 +277,16 @@ public class RingtoneFragment extends Fragment {
 
     // Retrieve the current ringtone
     private Ringtone getCurrentDefaultRingtone() {
-        Uri defaultRingtoneUri = ringtoneManager.getActualDefaultRingtoneUri(fragmentContext, RingtoneManager.TYPE_RINGTONE);
-        Ringtone currentTone = ringtoneManager.getRingtone(fragmentContext, defaultRingtoneUri);
+        Uri defaultRingtoneUri = ringtoneManager.getActualDefaultRingtoneUri(
+                getActivity().getApplicationContext(), RingtoneManager.TYPE_RINGTONE);
+        Ringtone currentTone = ringtoneManager.getRingtone(getActivity().getApplicationContext(), defaultRingtoneUri);
         return currentTone;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        currentSong.setText(getCurrentDefaultRingtone().getTitle(fragmentContext));
+        currentSong.setText(getCurrentDefaultRingtone().getTitle(getActivity().getApplicationContext()));
     }
 
     private AlertDialog.Builder refreshDialog() {

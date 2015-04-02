@@ -121,30 +121,7 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
         return selectedPositions;
     }
 
-//    Get the URIs of tones that were selected
-//    public String[] getSelectedURIs() {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String selectionQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_CHECKED + " =" + 1;
-//
-//        // Get all rows that are checked (meaning they were selected)
-//        Cursor selectedCursor = db.rawQuery(selectionQuery, null);
-//
-//        String [] selectedPositions = new String[selectedCursor.getCount()];
-//        Log.d(TAG, " There are " + selectedPositions.length + " checked items");
-//        Log.d(TAG, " The cursor has " + selectedCursor.getCount() + " items");
-//        int counter = 0;
-//
-//        // While you can move to the next cursor, record the positions of checked rows
-//        for (selectedCursor.moveToFirst(); !selectedCursor.isAfterLast(); selectedCursor.moveToNext()) {
-//            selectedPositions[counter] = selectedCursor.getString(selectedCursor.getColumnIndex(KEY_RINGTONE_URI));
-//            counter++;
-//            Log.e(TAG,  selectedCursor.getInt(selectedCursor.getColumnIndex(KEY_ID))+ " is selected");
-//        }
-//
-//        return selectedPositions;
-//    }
-
-    //
+    // Reload the db
     public void reload() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
