@@ -28,8 +28,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         numberOfTones = selectedTones.size();
         randomTonePosition = getRandomNumber(numberOfTones);
 
-//        RingtoneManager ringtoneManager = new RingtoneManager(context);
-//        ringtoneManager.setType(RingtoneManager.TYPE_RINGTONE);
         Uri newUri = Uri.parse(selectedTones.get(randomTonePosition).getTonePath());
         RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, newUri);
         Log.d(com.candidcold.cacophony.RingtoneFragment.TAG, "Broadcast received, ringtone changed");

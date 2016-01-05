@@ -13,7 +13,7 @@
     <string name="current_tone">Current Ringtone:</string>
     <string name="eligible">Eligible Ringtones:</string>
     <string name="refresh_app">Refresh</string>
-    <string name="refresh_dialog_message">You should only click \'OK\' if you\'ve added/deleted ringtones to/from your phone.
-    Once clicking \'OK\' the app will close. When opened again the app will be refreshed.</string>
+    <string name="refresh_dialog_message">You should only click \'OK\' if you\'ve added or deleted ringtones on your phone.
+    Once clicking \'OK\' the app will close. When opened again your changes will be made.</string>
 
 </resources>

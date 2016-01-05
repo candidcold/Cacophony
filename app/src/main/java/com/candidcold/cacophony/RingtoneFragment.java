@@ -38,11 +38,7 @@ public class RingtoneFragment extends Fragment {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private TextView currentSong;
-//    private ListView listView;
-//    private Button startAlarm;
-//    private Button cancelAlarm;
     private Cursor ringtonesCursor;
-//    private RingtoneManager ringtoneManager;
 
     private ArrayList<PhoneTone> allRingtonesList;
     private ArrayList<PhoneTone> selectedRingtonesList;
@@ -94,13 +90,21 @@ public class RingtoneFragment extends Fragment {
             // Add the phoneTone to the list
             allRingtonesList.add(phoneTone);
         }
-        selectedRingtonesAdapter = new RingtoneAdapter(getActivity().getApplicationContext(), selectedRingtonesList);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBooleanArray("checked", checked);
+        outState.putStringArray("names", ringtoneNames);
+        outState.putSerializable("allRingtonesList", allRingtonesList);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_ringtones, container, false);
+
         setup();
+        View rootView = inflater.inflate(R.layout.fragment_ringtones, container, false);
         currentSong = (TextView) rootView.findViewById(R.id.current_song);
         Button startAlarm = (Button) rootView.findViewById(R.id.alarmStarter);
         Button cancelAlarm = (Button) rootView.findViewById(R.id.alarmCanceler);
@@ -112,7 +116,7 @@ public class RingtoneFragment extends Fragment {
         currentSong.setText(playingRingtone.getTitle(getActivity().getApplicationContext()));
         playingRingtone.stop();
 
-
+        selectedRingtonesAdapter = new RingtoneAdapter(getActivity().getApplicationContext(), selectedRingtonesList);
 
         // Get the data to be shown in the listview and set it up
         getListOfSelected();
@@ -179,8 +183,7 @@ public class RingtoneFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // First get a list of the checked values in order to ensure the checked items
-                // are up to date.
+                // First get a list of the checked values in order to ensure the checked items are up to date.
                 createDialog();
             }
         });
@@ -193,11 +196,10 @@ public class RingtoneFragment extends Fragment {
         RingtoneDatabaseHelper helper = new RingtoneDatabaseHelper(getActivity().getApplicationContext());
         int [] selectedPositions = helper.getSelectedTones();
 
-        // For each position that is selected, get the ringtone in that position in the list of
-        // all ringtones
-        for(int i = 0; i < selectedPositions.length; i++) {
-            selectedRingtonesList.add(allRingtonesList.get(selectedPositions[i]));
-            Log.d(TAG, allRingtonesList.get(selectedPositions[i]).getToneName());
+        // For each position that is selected, get the ringtone in that position in the list of all ringtones
+        for (int selectedPosition : selectedPositions) {
+            selectedRingtonesList.add(allRingtonesList.get(selectedPosition));
+//            Log.d(TAG, allRingtonesList.get(selectedPosition).getToneName());
         }
     }
 
@@ -205,11 +207,10 @@ public class RingtoneFragment extends Fragment {
     public void getListOfChecked() {
         RingtoneDatabaseHelper helper = new RingtoneDatabaseHelper(getActivity().getApplicationContext());
         int [] selectedPositions = helper.getSelectedTones();
-//        Arrays.fill(checked, false);
 
         // For each position that is selected, check off that position in the boolean array
-        for (int i = 0; i < selectedPositions.length; i++) {
-            checked[selectedPositions[i]] = true;
+        for (int selectedPosition : selectedPositions) {
+            checked[selectedPosition] = true;
         }
     }
 
@@ -246,8 +247,6 @@ public class RingtoneFragment extends Fragment {
 
                         }
                         checked[which] = isChecked;
-                        Log.d(TAG, " boolean flipped on item " + which);
-                        Log.d(TAG, selectedTone.getToneName() + " has been modified");
 
                         // Notify the adapter there was a change in data
                         selectedRingtonesAdapter.notifyDataSetChanged();
@@ -302,10 +301,6 @@ public class RingtoneFragment extends Fragment {
                 .setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // TODO: make method in db helper to get you the URIs of selected, store them
-                        // TODO: Call method to update DB version
-                        // TODO: Set the rows with matching URIs to checked, then restart the app
-
                         RingtoneDatabaseHelper helper = new RingtoneDatabaseHelper(getActivity().getApplicationContext());
                         helper.reload();
                         helper.setPreviouslyCheckedItems(selectedRingtonesList);

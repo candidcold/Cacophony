@@ -90,7 +90,6 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
 
     // Add the tone to the database
     public void addTone(PhoneTone tone) {
-//        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_RINGTONE_NAME, tone.getToneName());
@@ -118,7 +117,6 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
         for (selectedCursor.moveToFirst(); !selectedCursor.isAfterLast(); selectedCursor.moveToNext()) {
             selectedPositions[counter] = selectedCursor.getInt(selectedCursor.getColumnIndex(KEY_ID)) - 1;
             counter++;
-            Log.e(TAG,  selectedCursor.getInt(selectedCursor.getColumnIndex(KEY_ID))+ " is selected");
         }
 
         return selectedPositions;
@@ -138,7 +136,6 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
             updateRow(checked);
         }
     }
-
 
     // Update the row in the database with the new value of the tone's checked state
     public void updateRow(PhoneTone tone) {

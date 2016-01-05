@@ -5,11 +5,11 @@ android {
     buildToolsVersion "21.1.1"
 
     defaultConfig {
-        applicationId "com.android.candidcold.cacophony"
+        applicationId "com.candidcold.cacophony"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "1.2"
     }
     buildTypes {
         release {
