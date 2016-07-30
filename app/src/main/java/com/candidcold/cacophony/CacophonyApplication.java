@@ -21,6 +21,11 @@ public class CacophonyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        createJobScheduler();
+
+    }
+
+    private void createJobScheduler() {
         scheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         JobInfo.Builder builder =
                 new JobInfo.Builder(1, new ComponentName(getPackageName(), RingtoneJobService.class.getName()));
@@ -30,6 +35,5 @@ public class CacophonyApplication extends Application {
         // TODO: Add more as needed
 
         scheduler.schedule(builder.build());
-
     }
 }
