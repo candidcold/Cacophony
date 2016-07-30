@@ -13,8 +13,7 @@ public class CacophonyApplication extends Application {
     private JobScheduler scheduler;
 
     static {
-        AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_AUTO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
     }
 
     @Override
@@ -22,9 +21,14 @@ public class CacophonyApplication extends Application {
         super.onCreate();
 
         createJobScheduler();
+        /* TODO:
+            Keep a singleton of the list of selected, and update it from various parts, possibly?
+            That way, you can get the list from anywhere (namely the service)
+         */
 
     }
 
+    // Will probably need to move this into the onclick in the fragment or something
     private void createJobScheduler() {
         scheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         JobInfo.Builder builder =
@@ -35,5 +39,9 @@ public class CacophonyApplication extends Application {
         // TODO: Add more as needed
 
         scheduler.schedule(builder.build());
+    }
+
+    private void cancelJobScheduler() {
+        scheduler.cancelAll();
     }
 }

@@ -24,13 +24,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         int numberOfTones,
             randomTonePosition;
 
-        selectedTones = (ArrayList<com.candidcold.cacophony.PhoneTone>) intent.getSerializableExtra("SelectedTones");
+        selectedTones = (ArrayList<PhoneTone>) intent.getSerializableExtra("SelectedTones");
         numberOfTones = selectedTones.size();
         randomTonePosition = getRandomNumber(numberOfTones);
 
         Uri newUri = Uri.parse(selectedTones.get(randomTonePosition).getTonePath());
         RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, newUri);
-        Log.d(com.candidcold.cacophony.RingtoneFragment.TAG, "Broadcast received, ringtone changed");
+        Log.d(RingtoneFragment.TAG, "Broadcast received, ringtone changed");
 
         // Build a notification to send to the user
         buildNotification(context, "New Ringtone!", selectedTones.get(randomTonePosition).getToneName());
