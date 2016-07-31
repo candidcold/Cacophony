@@ -96,7 +96,7 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
     void addTone(PhoneTone tone) {
         ContentValues values = new ContentValues();
         values.put(KEY_RINGTONE_NAME, tone.getToneName());
-        values.put(KEY_RINGTONE_URI, tone.getTonePath().toString());
+        values.put(KEY_RINGTONE_URI, tone.getTonePath());
         values.put(KEY_CHECKED, tone.getChecked()); // Don't really care about this anymore
 
         // Insert row
