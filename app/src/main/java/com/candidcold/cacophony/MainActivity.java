@@ -5,7 +5,6 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
-import android.database.Cursor;
 import android.media.Ringtone;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -20,19 +19,13 @@ import android.widget.TextView;
 import com.candidcold.cacophony.data.PhoneTone;
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 public class MainActivity extends AppCompatActivity implements SelectedRingtonePreviewListener {
 
-    private Toolbar appBar;
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private TextView currentSong;
-    private Cursor ringtonesCursor;
 
     private ArrayList<PhoneTone> allRingtonesList;
-    private ArrayList<PhoneTone> selectedRingtonesList;
-    private Queue<PhoneTone> tonesToUpdate;
 
     private boolean checked[];
     private String ringtoneNames[];
@@ -43,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements SelectedRingtoneP
     static {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
     }
+
+    private ArrayList<PhoneTone> selectedRingtonesList;
+    private Toolbar appBar;
+    private TextView currentSong;
 
     private JobScheduler scheduler;
     private RecyclerView selectedRecyclerView;
@@ -58,15 +55,6 @@ public class MainActivity extends AppCompatActivity implements SelectedRingtoneP
         setSupportActionBar(appBar);
 
         ringtoneUtils = new RingtoneUtils(this);
-
-//        // Setup fragment transaction
-//        if (savedInstanceState == null) {
-//            RingtoneFragment ringtoneFragment = new com.candidcold.cacophony.RingtoneFragment();
-//            FragmentManager fm = getSupportFragmentManager();
-//            FragmentTransaction ft = fm.beginTransaction();
-//            ft.add(R.id.container, ringtoneFragment);
-//            ft.commit();
-//        }
 
     }
 

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/card_gutter"
         android:layout_marginLeft="@dimen/card_gutter"
         android:layout_marginRight="@dimen/card_gutter"
-        android:layout_marginBottom="@dimen/card_gutter"
         android:layout_marginTop="@dimen/card_gutter"
         >
 
@@ -23,56 +25,56 @@
                 android:id="@+id/current_song_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/current_tone"
-                android:textSize="24sp"
-                android:textColor="@color/accent"
-                android:paddingTop="@dimen/text_padding_top"
                 android:paddingLeft="@dimen/padding_left_right"
                 android:paddingRight="@dimen/padding_left_right"
+                android:paddingTop="@dimen/text_padding_top"
+                android:text="@string/current_tone"
+                android:textColor="@color/accent"
+                android:textSize="24sp"
                 />
 
             <TextView
                 android:id="@+id/current_song"
-                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/current_song_tag"
+                android:paddingBottom="@dimen/text_padding_bottom"
                 android:paddingLeft="@dimen/padding_left_right"
                 android:paddingRight="@dimen/padding_left_right"
                 android:paddingTop="@dimen/text_padding_top"
-                android:paddingBottom="@dimen/text_padding_bottom"
                 android:textColor="@color/primary_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textSize="16sp"/>
 
             <Button
                 android:id="@+id/alarmStarter"
-                android:layout_below="@id/current_song"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/current_song"
                 android:text="@string/start_alarm"
-                android:textColor="@color/accent"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textColor="@color/accent"/>
 
             <Button
                 android:id="@+id/alarmCanceler"
-                android:layout_toRightOf="@id/alarmStarter"
-                android:layout_below="@id/current_song"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/current_song"
+                android:layout_toRightOf="@id/alarmStarter"
                 android:text="@string/stop_alarm"
-                android:textColor="@color/negative_action"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textColor="@color/negative_action"/>
 
             <!--Eventually turn the refresh button into an action button because clutter-->
 
             <Button
                 android:id="@+id/refreshApp"
-                android:layout_toRightOf="@id/alarmCanceler"
-                android:layout_below="@id/current_song"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/current_song"
+                android:layout_toRightOf="@id/alarmCanceler"
                 android:text="@string/refresh_app"
-                android:textColor="@color/neutral_action"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textColor="@color/neutral_action"/>
 
 
         </RelativeLayout>
@@ -83,13 +85,14 @@
         android:id="@+id/selected_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_left_right"
         android:background="@color/primary_light"
+        android:padding="@dimen/padding_left_right"
         android:text="@string/eligible"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
@@ -102,7 +105,7 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:src="@drawable/ic_queue_music_white_24dp"
-            fab:fab_colorNormal="@color/accent" />
+            fab:fab_colorNormal="@color/accent"/>
     </FrameLayout>
 
 </LinearLayout>
