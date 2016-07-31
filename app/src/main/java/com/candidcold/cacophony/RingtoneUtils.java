@@ -65,7 +65,7 @@ public class RingtoneUtils {
     }
 
     public void stopPlayingRingtone() {
-        playingRingtone.stop();
+        if (playingRingtone.isPlaying()) playingRingtone.stop();
 
     }
 }

@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -32,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements SelectedRingtoneP
     private ArrayList<PhoneTone> selectedRingtonesList;
     private Queue<PhoneTone> tonesToUpdate;
 
-
     private boolean checked[];
     private String ringtoneNames[];
     private int counter = 0;
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements SelectedRingtoneP
     }
 
     private JobScheduler scheduler;
+    private RecyclerView selectedRecyclerView;
+    private SelectedTonesAdapter adapter;
+
+    private RingtoneUtils ringtoneUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements SelectedRingtoneP
         setContentView(R.layout.activity_main);
         appBar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(appBar);
+
+        ringtoneUtils = new RingtoneUtils(this);
 
 //        // Setup fragment transaction
 //        if (savedInstanceState == null) {
@@ -64,8 +71,14 @@ public class MainActivity extends AppCompatActivity implements SelectedRingtoneP
     }
 
     @Override
-    public void playTone(PhoneTone toneToPlay) {
+    protected void onStop() {
+        super.onStop();
+        ringtoneUtils.stopPlayingRingtone();
+    }
 
+    @Override
+    public void playTone(PhoneTone toneToPlay) {
+        ringtoneUtils.playRingtone(toneToPlay);
     }
 
     // Will probably need to move this into the onclick in the fragment or something
@@ -87,5 +100,13 @@ public class MainActivity extends AppCompatActivity implements SelectedRingtoneP
 
     private void snackbarMaker(View v, String text) {
         Snackbar.make(v, text, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void setupRecyclerView() {
+        adapter = new SelectedTonesAdapter(selectedRingtonesList);
+        selectedRecyclerView.setAdapter(adapter);
+        selectedRecyclerView.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
     }
 }

@@ -25,7 +25,7 @@ public class RingtoneAdapter extends ArrayAdapter<PhoneTone> {
         final ViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.ringtone_textview, parent, false);
+            convertView = inflater.inflate(R.layout.item_ringtone, parent, false);
             holder = new ViewHolder();
             holder.ringtoneName = (TextView) convertView.findViewById(R.id.ringtone_textview);
             convertView.setTag(holder);

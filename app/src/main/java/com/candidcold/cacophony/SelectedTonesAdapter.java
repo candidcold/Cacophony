@@ -22,7 +22,7 @@ public class SelectedTonesAdapter extends RecyclerView.Adapter<SelectedTonesAdap
     @Override
     public SelectedTonesAdapter.ToneHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         listener = (MainActivity) parent.getContext();
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ringtone_textview, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ringtone, parent, false);
         return new ToneHolder(itemView);
     }
 
