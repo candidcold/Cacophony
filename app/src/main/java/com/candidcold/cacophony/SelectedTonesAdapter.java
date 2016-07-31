@@ -36,6 +36,12 @@ public class SelectedTonesAdapter extends RecyclerView.Adapter<SelectedTonesAdap
         return selectedTones.size();
     }
 
+    // TODO: Make the current ringtone the one that has a Card instead
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
     class ToneHolder extends RecyclerView.ViewHolder {
         TextView ringtone;
 
