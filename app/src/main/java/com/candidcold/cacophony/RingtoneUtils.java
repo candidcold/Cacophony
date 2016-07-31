@@ -12,22 +12,23 @@ import java.util.ArrayList;
 
 public class RingtoneUtils {
     private Context context;
-    private RingtoneManager ringtoneManager;
     private Ringtone playingRingtone;
     private ArrayList<PhoneTone> allRingtones = new ArrayList<>();
 
     public RingtoneUtils(Context context) {
         this.context = context;
-        ringtoneManager = new RingtoneManager(context);
-        ringtoneManager.setType(RingtoneManager.TYPE_RINGTONE);
         playingRingtone = getCurrentDefaultRingtone();
         playingRingtone.stop();
+
     }
 
     public ArrayList<PhoneTone> getAllRingtonesOnDevice() {
         if (!allRingtones.isEmpty()) {
             return allRingtones;
+
         } else {
+            RingtoneManager ringtoneManager = new RingtoneManager(context);
+            ringtoneManager.setType(RingtoneManager.TYPE_RINGTONE);
             Cursor ringtonesCursor = ringtoneManager.getCursor();
 
             while (ringtonesCursor.moveToNext()) {
@@ -40,9 +41,10 @@ public class RingtoneUtils {
                 phoneTone.setToneName(tempRingtone.getTitle(context));
 
                 allRingtones.add(phoneTone);
-            }
 
+            }
             return allRingtones;
+
         }
     }
 
@@ -52,15 +54,18 @@ public class RingtoneUtils {
         Ringtone current = RingtoneManager.getRingtone(context, defaultRingtoneUri);
         current.stop();
         return current;
+
     }
 
     public void playRingtone(PhoneTone tone) {
         stopPlayingRingtone();
         playingRingtone = RingtoneManager.getRingtone(context, Uri.parse(tone.getTonePath()));
         playingRingtone.play();
+
     }
 
     public void stopPlayingRingtone() {
         playingRingtone.stop();
+
     }
 }

@@ -1,12 +1,16 @@
 package com.candidcold.cacophony;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+
+import com.candidcold.cacophony.data.PhoneTone;
 
 import java.util.Random;
 
@@ -52,10 +56,20 @@ public class RingtoneJobService extends JobService {
         mBuilder.setContentIntent(resultPendingIntent);
 
         int mNotificationId = 001;
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(mNotificationId, mBuilder.build());
+
+
         // Gets an instance of the NotificationManager service
-        NotificationManager mNotifyMgr =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//        NotificationManager mNotifyMgr =
+//                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // Builds the notification and issues it.
-        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+//        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+    }
+
+    private void setDefaultRingtone(PhoneTone tone) {
+        Uri newUri = Uri.parse(tone.getTonePath());
+        RingtoneManager.setActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE, newUri);
     }
 }

@@ -8,9 +8,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.media.Ringtone;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.candidcold.cacophony.data.PhoneTone;
@@ -81,5 +83,9 @@ public class MainActivity extends AppCompatActivity implements SelectedRingtoneP
 
     private void cancelJobScheduler() {
         scheduler.cancelAll();
+    }
+
+    private void snackbarMaker(View v, String text) {
+        Snackbar.make(v, text, Snackbar.LENGTH_SHORT).show();
     }
 }
