@@ -43,6 +43,10 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
         applicationContext = context;
     }
 
+    // TODO: Instead, only save the URIs of the ringtones that are actually checked, and then
+    // we can check against the URIs for the ones that must be set. Not store all of the tones
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         this.db = db;
