@@ -11,13 +11,28 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
 import com.candidcold.cacophony.data.PhoneTone;
+import com.candidcold.cacophony.data.RingtoneInteractor;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class RingtoneJobService extends JobService {
+    private RingtoneInteractor interactor;
+
 
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
+        interactor = new RingtoneInteractor(this);
+
+        ArrayList<PhoneTone> selectedTones = interactor.getSelectedTones();
+
+        int randomNum = getRandomNumber(selectedTones.size());
+        PhoneTone chosenTone = selectedTones.get(randomNum);
+
+        setDefaultRingtone(chosenTone);
+        buildNotification(this, "New Ringtone!", chosenTone.getToneName());
+
+        // Return true if using another thread
         return false;
     }
 
@@ -69,7 +84,12 @@ public class RingtoneJobService extends JobService {
     }
 
     private void setDefaultRingtone(PhoneTone tone) {
+        RingtoneManager ringtoneManager = new RingtoneManager(this);
         Uri newUri = Uri.parse(tone.getTonePath());
-        RingtoneManager.setActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE, newUri);
+
+        // if it's -1 then the Uri doesn't exist
+        if (ringtoneManager.getRingtonePosition(newUri) != -1) {
+            RingtoneManager.setActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE, newUri);
+        }
     }
 }
