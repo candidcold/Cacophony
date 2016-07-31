@@ -94,7 +94,6 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
 
     // Add the tone to the database
     void addTone(PhoneTone tone) {
-
         ContentValues values = new ContentValues();
         values.put(KEY_RINGTONE_NAME, tone.getToneName());
         values.put(KEY_RINGTONE_URI, tone.getTonePath().toString());
@@ -102,6 +101,14 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
 
         // Insert row
         db.insertOrThrow(TABLE_NAME, null, values);
+    }
+
+    void removeTone(PhoneTone tone) {
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = KEY_RINGTONE_NAME + "=?";
+        String[] whereArgs = new String[]{ String.valueOf(tone.getToneName()) };
+
+        db.delete(TABLE_NAME, whereClause, whereArgs);
     }
 
     ArrayList<PhoneTone> getTones() {

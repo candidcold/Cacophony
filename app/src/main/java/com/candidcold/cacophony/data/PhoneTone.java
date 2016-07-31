@@ -17,6 +17,10 @@ public class PhoneTone implements Parcelable, Serializable {
         checked = 0;
     }
 
+    public boolean equals(PhoneTone second) {
+        return second.getToneName().equals(toneName) && second.getTonePath().equals(tonePath);
+    }
+
     @Override
     public String toString() {
         return toneName;
