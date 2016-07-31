@@ -17,13 +17,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RingtoneJobService extends JobService {
-    private RingtoneInteractor interactor;
-
 
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        interactor = new RingtoneInteractor(this);
-
+        RingtoneInteractor interactor = new RingtoneInteractor(this);
         ArrayList<PhoneTone> selectedTones = interactor.getSelectedTones();
 
         int randomNum = getRandomNumber(selectedTones.size());
