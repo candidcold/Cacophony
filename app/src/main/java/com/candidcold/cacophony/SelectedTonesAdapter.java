@@ -13,6 +13,7 @@ import java.util.List;
 public class SelectedTonesAdapter extends RecyclerView.Adapter<SelectedTonesAdapter.ToneHolder> {
 
     private List<PhoneTone> selectedTones;
+    private SelectedRingtonePreviewListener listener;
 
     public SelectedTonesAdapter(List<PhoneTone> selectedTones) {
         this.selectedTones = selectedTones;
@@ -20,17 +21,22 @@ public class SelectedTonesAdapter extends RecyclerView.Adapter<SelectedTonesAdap
 
     @Override
     public SelectedTonesAdapter.ToneHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        listener = (MainActivity) parent.getContext();
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ringtone_textview, parent, false);
         return new ToneHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(SelectedTonesAdapter.ToneHolder holder, int position) {
-        PhoneTone singleTone = selectedTones.get(position);
+        final PhoneTone singleTone = selectedTones.get(position);
 
         holder.setRingtone(singleTone.getToneName());
-        // TODO: Create a callback to play the selected tone
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.playTone(singleTone);
+            }
+        });
     }
 
     @Override
