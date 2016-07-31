@@ -1,4 +1,4 @@
-package com.candidcold.cacophony;
+package com.candidcold.cacophony.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,7 +19,7 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = RingtoneDatabaseHelper.class.getSimpleName();
 
     // Database information
-    private static int DATABASE_VERSION = 7;
+    private static int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "RingtonesDb";
 
     // Table name
@@ -37,7 +37,7 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
     public Context applicationContext;
     public SQLiteDatabase db;
 
-    // Auto-generated methods
+
     public RingtoneDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         applicationContext = context;
@@ -58,13 +58,13 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(createTable);
 
-        // Gets all the ringtones on the device.
-        ringtoneManager = new RingtoneManager(applicationContext);
-        ringtoneManager.setType(RingtoneManager.TYPE_RINGTONE);
-        ringtoneCursor = ringtoneManager.getCursor();
-
-        // Convert the cursor into tones and add them to the database.
-        convertToTones(ringtoneCursor);
+//        // Gets all the ringtones on the device.
+//        ringtoneManager = new RingtoneManager(applicationContext);
+//        ringtoneManager.setType(RingtoneManager.TYPE_RINGTONE);
+//        ringtoneCursor = ringtoneManager.getCursor();
+//
+//        // Convert the cursor into tones and add them to the database.
+//        convertToTones(ringtoneCursor);
 
     }
 
@@ -93,16 +93,35 @@ public class RingtoneDatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Add the tone to the database
-    public void addTone(PhoneTone tone) {
+    void addTone(PhoneTone tone) {
 
         ContentValues values = new ContentValues();
         values.put(KEY_RINGTONE_NAME, tone.getToneName());
         values.put(KEY_RINGTONE_URI, tone.getTonePath().toString());
-        values.put(KEY_CHECKED, tone.getChecked());
+        values.put(KEY_CHECKED, tone.getChecked()); // Don't really care about this anymore
 
         // Insert row
         db.insertOrThrow(TABLE_NAME, null, values);
     }
+
+    ArrayList<PhoneTone> getTones() {
+        ArrayList<PhoneTone> tones = new ArrayList<>();
+        Cursor c = db.rawQuery("select * from " + TABLE_NAME, null);
+
+        while (c.moveToNext()) {
+            PhoneTone tone = new PhoneTone();
+            tone.setTonePath(c.getString(c.getColumnIndex(KEY_RINGTONE_URI)));
+            tone.setToneName(c.getString(c.getColumnIndex(KEY_RINGTONE_NAME)));
+
+            tones.add(tone);
+        }
+
+        c.close();
+        return tones;
+    }
+
+
+    /* All of the methods below this line can be removed almost entirely */
 
     // Get the IDs of tones that were selected
     public int[] getSelectedTones() {

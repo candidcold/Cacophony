@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.candidcold.cacophony.data.PhoneTone;
+
 import java.util.List;
 
 public class SelectedTonesAdapter extends RecyclerView.Adapter<SelectedTonesAdapter.ToneHolder> {

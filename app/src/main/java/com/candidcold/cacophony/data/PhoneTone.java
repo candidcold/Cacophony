@@ -1,4 +1,4 @@
-package com.candidcold.cacophony;
+package com.candidcold.cacophony.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;

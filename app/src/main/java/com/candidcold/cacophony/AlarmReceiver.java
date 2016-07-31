@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.candidcold.cacophony.data.PhoneTone;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -20,7 +22,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        ArrayList<com.candidcold.cacophony.PhoneTone> selectedTones;
+        ArrayList<PhoneTone> selectedTones;
         int numberOfTones,
             randomTonePosition;
 
@@ -28,6 +30,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         numberOfTones = selectedTones.size();
         randomTonePosition = getRandomNumber(numberOfTones);
 
+        // TODO: Make sure to add the check to see if this ringtone is actually still there
+        // TODO: Use getRingtonePosition(uri) and see if it returns -1
         Uri newUri = Uri.parse(selectedTones.get(randomTonePosition).getTonePath());
         RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, newUri);
         Log.d(RingtoneFragment.TAG, "Broadcast received, ringtone changed");

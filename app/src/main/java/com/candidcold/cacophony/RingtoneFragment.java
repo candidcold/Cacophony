@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.candidcold.cacophony.data.PhoneTone;
+import com.candidcold.cacophony.data.RingtoneDatabaseHelper;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
